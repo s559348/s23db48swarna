@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  h1= title
+   
+
+   
+  
+  -var results=[];
+  -var Shirt={};
+  -Shirt.type="Formal";
+  -Shirt.size="Small";
+  -Shirt.value=50;
+  -results.push(Shirt);
+  -var Shirt1={};
+  -Shirt1.type="T-shirt";
+  -Shirt1.size="Medium";
+  -Shirt1.value=70;
+  -results.push(Shirt1);
+  -var Shirt2={};
+  -Shirt2.type="Casual";
+  -Shirt2.size="Large";
+  -Shirt2.value=100;
+  -results.push(Shirt2);
+   
+   div(class="container-fluid")
+   div(class="row")
+     each b,index  in results
+      div(class="col-sm-2" onclick =`buy(${index})`) #{b.type}, #{b.size}, #{b.value}
+   script.
+        function buy(a)
+        {
+            alert(`You purchased Item ${a+1}`)
+        }
+
+  
+
+     
+     
+
+
+   //-var list = results
+    //each item in list
+    //div(class='col-sm-2') #{item}
+    
+
+       
