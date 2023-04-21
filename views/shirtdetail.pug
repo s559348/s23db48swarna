@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No instance to Show to details 
+  else
+    - let shirtid = toShow._id
+    - let shirt_type = toShow.shirt_type
+    - let shirt_size = toShow.shirt_size
+    - let shirt_value = toShow.shirt_value
+    div
+      div.row
+        div(class='shirtAttr mr-3') Shirt ID is:
+        div #{shirtid}
+      div.row
+        div(class='shirtAttr mr-3') Shirt Type:
+        div #{shirt_type}
+      div.row
+        div(class='shirtAttr mr-3') Shirt Size is:
+        div #{shirt_size}
+      div.row
+        div(class='shirtAttr mr-3') Shirt Value is:
+        div #{shirt_value}

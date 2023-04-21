@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No instance to update
+  else
+    - let shirtid = toShow._id
+    - let shirt_type = toShow.shirt_type
+    - let shirt_size = toShow.shirt_size
+    - let shirt_value = toShow.shirt_value
+ 
+    div.row(class='mb-2')
+      div.mr-1 ID is
+      div #{shirtid}
+    - let actionid = "/resource/shirts/" + shirtid
+    form(id='shirtForm', action=actionid, method="PUT")
+      div.form-group
+        label.shirtAttr(for='shirt_type') Shirt Type
+        input#shirt_type(type='text', name='shirt_type', value=shirt_type)
+      div.form-group
+        label.shirtAttr(for='shirt_size') Shirt Size
+        input#shirt_size(type='text', name='shirt_size', value=shirt_size)
+      div.form-group
+        label.shirtAttr(for='shirt_value') Shirt Value
+        input#shirt_value(type='number', name='shirt_value', value=shirt_value)
+      input(type="submit")
+
+    script.
+      document.forms['shirtForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        // TODO do something here to show user that form is being submitted
+        fetch(event.target.action, {
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Update succeded")
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Update failed " + error )
+        });
+      });

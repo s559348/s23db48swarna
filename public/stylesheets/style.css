@@ -6,3 +6,8 @@ body {
 a {
   color: #00B7FF;
 }
+
+.shirtAttr {
+  background-color: rgb(255, 253, 127);
+  width: 120px;
+  }
