@@ -2,30 +2,33 @@ extends layout
 
 block content
   h1= title
-   
 
-   
-  
-  -var result=results;
-   div(class="container-fluid")
-   div(class="row")
-     each b,index  in result
-      div(class="col-sm-2" onclick =`buy(${index})`) #{b.shirt_type}, #{b.shirt_size}, #{b.shirt_value}
-   script.
-        function buy(a)
-        {
-            alert(`You purchased Item ${a+1}`)
-        }
+  - let items = results;
+  - let o;
 
-  
+  script.
+    function buy(x){
+      alert('purchased item ' + x)
+    }
 
-     
-     
+  div(class='container-fluid')
+    div(class='row m-1')
+      div(class="row row-cols-1 row-cols-sm-4 g-6")
+        each item, index in items
+          - let destination = `dispatch(\"/shirt/update?id=${item._id}\")`
+          - let deserve = `dispatch(\"/shirt/delete?id=${item._id}\")`
+          - let define = `dispatch(\"/shirt/detail?id=${item._id}\")`
+          div(class="card text-white bg-dark mb-3 col")
+            .card-body(onclick='buy('+index+')')
+              p Item #{item.Cust_Name}(#{item.Mail_Id}) is #{item.Cust_Age}
+              p
+                button.btn.btn-success.ml-1(onclick= destination) Update
+              p
+                button.btn.btn-success.ml-1(onclick= deserve) Delete
+              p
+                button.btn.btn-success.ml-1(onclick= define) Detail
 
-
-   //-var list = results
-    //each item in list
-    //div(class='col-sm-2') #{item}
-    
-
-       
+  script.
+    function dispatch(path){
+      window.location.href=path
+    }

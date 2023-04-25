@@ -14,6 +14,17 @@ var router = express.Router();
 
 const shirt_controlers= require('../controllers/shirt');
 
+// A little function to check if we have an authorized user and continue on
+//or
+// redirect to login.
+const secured = (req, res, next) => {
+if (req.user){
+return next();
+}
+req.session.returnTo = req.originalUrl;
+res.redirect("/login");
+}
+
 /* GET costumes */
 router.get('/', shirt_controlers.shirt_view_all_Page );
 
@@ -24,7 +35,7 @@ router.get('/detail', shirt_controlers.shirt_view_one_Page);
 router.get('/create', shirt_controlers. shirt_create_Page);
 
 /* GET create update page */
-router.get('/update', shirt_controlers.shirt_update_Page);
+router.get('/update',secured ,shirt_controlers.shirt_update_Page);
 
 /* GET delete costume page */
 router.get('/delete', shirt_controlers.shirt_delete_Page);
