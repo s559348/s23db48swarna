@@ -103,11 +103,15 @@ exports.shirt_update_put = async function (req, res) {
 ${JSON.stringify(req.body)}`)
     try {
         let toUpdate = await Shirt.findById(req.params.id)
+        console.log("requesred " + toUpdate)
         // Do updates of properties
-        if (req.body.Shirt_type)
-            toUpdate.Shirt_type = req.body.Shirt_type;
-        if (req.Shirt.size) shirt_size = req.Shirt.size;
-        if (req.Shirt.value) shirt_value = req.Shirt.value;
+        if (req.body.shirt_type)
+            toUpdate.shirt_type = req.body.shirt_type;
+        if (req.body.shirt_size) 
+            toUpdate.shirt_size = req.body.shirt_size;
+        if (req.body.shirt_value) 
+            toUpdate.shirt_value = req.body.shirt_value;
+       
         let result = await toUpdate.save();
         console.log("Sucess " + result)
         res.send(result)
